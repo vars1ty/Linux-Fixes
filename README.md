@@ -14,12 +14,39 @@ To take a screenshot, run this command (bind it to a key): `grimshot copy area`
 What a surprise.
 
 1. Add the nvidia modeset option to your kernel parameters and load the modules early, [link](https://wiki.archlinux.org/title/NVIDIA#DRM_kernel_mode_setting)
-2. Instead of launching Hyprland via the command `Hyprland`, add an alias like this:
-`alias anticonsumer="bash -c '__GL_GSYNC_ALLOWED=1; __GL_VRR_ALLOWED=0; WLR_DRM_NO_ATOMIC=1; export QT_AUTO_SCREEN_SCALE_FACTOR=1; export QT_QPA_PLATFORM=wayland; export QT_WAYLAND_DISABLE_WINDOWDECORATION=1; export GDK_BACKEND=wayland,x11; export XDG_CURRENT_DESKTOP=Hyprland; export GBM_BACKEND=nvidia-drm; export __GLX_VENDOR_LIBRARY_NAME=nvidia; export MOZ_ENABLE_WAYLAND=1; export WLR_NO_HARDWARE_CURSORS=1; Hyprland'"`
-3. Run the alias when you see your tty, in this example you'd run `anticonsumer` and then you should be in.
+2. Add these lines to `/etc/environment`:
+```
+export LIBVA_DRIVER_NAME=nvidia
+export CLUTTER_BACKEND=wayland
+export XDG_SESSION_TYPE=wayland
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export MOZ_ENABLE_WAYLAND=1
+export GBM_BACKEND=nvidia-drm
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export WLR_NO_HARDWARE_CURSORS=1
+export WLR_BACKEND=vulkan
+export QT_QPA_PLATFORM=wayland
+export GDK_BACKEND=wayland
+```
+3. Restart and run Hyprland
 ## Unity Hub crashes on NVIDIA GPUs
 This is most lilely because of a `libva` error, to fix it on Arch, run these commands:
 
 1. Install the unofficial NVIDIA VAAPI Driver from elFarto: `paru -S nvidia-vappi-driver-git`
 2. Run Unity Hub using `LIBVA_DRIVER_NAME=nvidia unityhub`
 3. Done
+## Flatpak Apps can't open FileChooser, etc
+Note: This is only for Hyprland, it may or may not work for other Wayland compositors.
+***
+
+1. Install `xdg-desktop-portal`, `xdg-desktop-potal-gtk` and `xdg-desktop-portal-wlr`
+2. Add an alias to your `.bashrc` or `.zshrc` named `hyprland`, here's the full line:
+   * `alias hyprland="dbus-run-session Hyprland"`
+3. Add this to your config:
+```
+exec-once=systemctl --user enable xdg-desktop-portal
+exec-once=systemctl --user enable xdg-desktop-portal-wlr
+exec-once=systemctl --user enable xdg-desktop-portal-gtk
+exec-once=hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+```
+4. Done, restart your PC and it should be working again. Make sure you launch Hyprland using `hyprland`, or you can just use  a `.desktop` file with `dbus-run-session` inside the `exec` part.
