@@ -50,3 +50,10 @@ exec-once=systemctl --user enable xdg-desktop-portal-gtk
 exec-once=hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 ```
 4. Done, restart your PC and it should be working again. Make sure you launch Hyprland using `hyprland`, or you can just use  a `.desktop` file with `dbus-run-session` inside the `exec` part.
+
+## My OBS doesn't work :'(
+I never got OBS to work properly under Wayland (well dmabuf or w/e works until you switch workspaces), so I just started using `wf-recorder` instead.
+
+Package: `wf-recorder`
+
+Command to record with audio: `wf-recorder -a`, and to record without audio: `wf-recorder`
