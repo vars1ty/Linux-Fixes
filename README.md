@@ -73,3 +73,10 @@ No? It hurts your eyes right? Yeah thought so.
 
 
 You may wanna pass this to `/etc/environment` though so you don't have to export the variable yourself constantly.
+## Cursor Themes not applying in Flatpak applications
+I don't know if this is a Wayland-specific issue, but I have only encountered it on Wayland, hence why it's here.
+***
+1. Open up Flatseal
+2. Press `All Applications`
+3. In `Other files` add in `/home/YOUR_USERNAME/.icons`
+4. Done, now you should see the cursor in Flatpak applications.
