@@ -69,4 +69,7 @@ No? It hurts your eyes right? Yeah thought so.
 2. Open up a terminal and write `export GTK_THEME=Orchis:dark` -- ThemeName:Variant
 3. Write `thunar` to open Thunar and congrats, your theme is there and you saved your eyes!
 
+![image](https://user-images.githubusercontent.com/54314240/183556907-14494abe-c601-4273-8966-91951be86ec3.png)
+
+
 You may wanna pass this to `/etc/environment` though so you don't have to export the variable yourself constantly.
