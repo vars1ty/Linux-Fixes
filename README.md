@@ -57,3 +57,16 @@ I never got OBS to work properly under Wayland (well dmabuf or w/e works until y
 Package: `wf-recorder`
 
 Command to record with audio: `wf-recorder -a`, and to record without audio: `wf-recorder`
+## GTK Themes not applying everywhere
+I don't know if this is a Wayland-specific issue, but I have only encountered it on Wayland, hence why it's here.
+***
+Let's say you are using the [Orchis](https://github.com/vinceliuice/Orchis-theme) theme and want it to apply to applications such as Thunar. Well, does this look correct?
+
+![image](https://user-images.githubusercontent.com/54314240/183556600-779f7abd-42d5-4d99-aee2-321babea71b2.png)
+
+No? It hurts your eyes right? Yeah thought so.
+1. Install the theme of your liking, using Orchis in this example with Thunar as the file manager
+2. Open up a terminal and write `export GTK_THEME=Orchis:dark` -- ThemeName:Variant
+3. Write `thunar` to open Thunar and congrats, your theme is there and you saved your eyes!
+
+You may wanna pass this to `/etc/environment` though so you don't have to export the variable yourself constantly.
