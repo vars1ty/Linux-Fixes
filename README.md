@@ -4,6 +4,8 @@ Fixes for various Wayland-related problems, because icbf searching for them agai
 Because Jetbrains chose to use *Java* (yeah I know, cringe language) as the language behind their IDEs, it doesn't render properly (or at all) on Wayland.
 
 To overcome this, run this in Terminal: `export _JAVA_AWT_WM_NONREPARENTING=1 && rider` - You may also pass the `export` into the desktop entry so that you can skip opening Terminal.
+
+And before you say, "Java is a good language! BOO BOO SOB SOB" - No, it isn't.
 ## Maim doesn't work
 Maim is a mess anyways, freezing and dying left and right on X11. Use Grim instead.
 
@@ -13,22 +15,7 @@ To take a screenshot, run this command (bind it to a key): `grimshot copy area`
 ## NVIDIA doesn't launch on Hyprland
 What a surprise.
 
-1. Add the nvidia modeset option to your kernel parameters and load the modules early, [link](https://wiki.archlinux.org/title/NVIDIA#DRM_kernel_mode_setting)
-2. Add these lines to `/etc/environment`:
-```
-export LIBVA_DRIVER_NAME=nvidia
-export CLUTTER_BACKEND=wayland
-export XDG_SESSION_TYPE=wayland
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export MOZ_ENABLE_WAYLAND=1
-export GBM_BACKEND=nvidia-drm
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export WLR_NO_HARDWARE_CURSORS=1
-export WLR_BACKEND=vulkan
-export QT_QPA_PLATFORM=wayland
-export GDK_BACKEND=wayland
-```
-3. Restart and run Hyprland
+**Update**: Moved instructions over to Hyprland's [wiki](https://wiki.hyprland.org/Nvidia/).
 ## Unity Hub crashes on NVIDIA GPUs
 This is most lilely because of a `libva` error, to fix it on Arch, run these commands:
 
@@ -80,3 +67,31 @@ I don't know if this is a Wayland-specific issue, but I have only encountered it
 2. Press `All Applications`
 3. In `Other files` add in `/home/YOUR_USERNAME/.icons`
 4. Done, now you should see the cursor in Flatpak applications.
+## Help help, Electron applications aren't running! Passthrough errors etc
+No idea if this is tied to NVIDIA GPUs, but seems like it is. Anyways, launch your RAM-Hog application with these flags:
+
+`application-name --enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=egl`
+
+I have no idea why this happens for some, while for others it just works. But it's whatever I guess.
+## NVIDIA Overclocking does not work
+Blame NVIDIA, there's (afaik) no workaround for it atm.
+## Discord is slow and laggy
+Don't use the official Discord client, nor the AUR hacky electron-upgraded ones.
+
+Instead, use [WebCord](https://github.com/SpacingBat3/WebCord) which wraps around the web version of Discord, while also respecting your privacy and blocking certain tracking.
+## Do I have to pass flags to every Electron application for it to run in Wayland?
+Yes and no. 
+
+No if you make a file at `~/.config/electron-flags.conf` with the following contents:
+```
+--enable-features=UseOzonePlatform
+--ozone-platform=wayland
+```
+
+Yes if the application is either from Flatpak and doesn't have read permissions for the file, **or** if the application simply just does not want to run on Wayland at all.
+
+**For Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server settings and only allow it to access Wayland.**
+## Screensharing on WebCord
+No clue, for some "it just works" after configuring portals (as seen above with xdg-desktop-*), and for some it just will not work.
+
+In general, screensharing and OBS is a hit or miss, since they both are moody as shit.
