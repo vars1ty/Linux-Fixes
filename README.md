@@ -90,7 +90,10 @@ No if you make a file at `~/.config/electron-flags.conf` with the following cont
 
 Yes if the application is either from Flatpak and doesn't have read permissions for the file, **or** if the application simply just does not want to run on Wayland at all.
 
-**For Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server settings and only allow it to access Wayland.**
+**For Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server permissions and only allow it to access Wayland.**
+**Below is an example for Librewolf**
+![image](https://user-images.githubusercontent.com/54314240/184984454-adffaf8a-e94e-4b67-bf18-6a1cd095e350.png)
+
 ## Screensharing on WebCord
 No clue, for some "it just works" after configuring portals (as seen above with xdg-desktop-*), and for some it just will not work.
 
