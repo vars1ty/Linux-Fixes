@@ -98,3 +98,11 @@ Yes if the application is either from Flatpak and doesn't have read permissions 
 No clue, for some "it just works" after configuring portals (as seen above with xdg-desktop-*), and for some it just will not work.
 
 In general, screensharing and OBS is a hit or miss, since they both are moody as shit.
+## Stremio has weird colors
+In my case, I can't even run Stremio on Wayland without it suffering from issues. So instead, run it in XWayland for now.
+
+For non-Flatpak users:
+`export QT_QPA_PLATFORM=xcb && stremio` 
+
+For Flatpak users:
+`export QT_QPA_PLATFORM=xcb && com.stremio.Stremio`
