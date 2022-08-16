@@ -106,3 +106,7 @@ For non-Flatpak users:
 
 For Flatpak users:
 `export QT_QPA_PLATFORM=xcb && com.stremio.Stremio`
+## Neovide doesn't launch
+This is due to some dep. issue IIRC, which hasn't yet been solved by Neovide.
+
+For now, you have to run it in XWayland: `WINIT_UNIX_BACKEND=x11 neovide`
