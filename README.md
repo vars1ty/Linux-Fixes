@@ -110,3 +110,11 @@ For Flatpak users:
 This is due to some dep. issue IIRC, which hasn't yet been solved by Neovide.
 
 For now, you have to run it in XWayland: `WINIT_UNIX_BACKEND=x11 neovide`
+## PolKit is dead
+For example, you may get this annoying error: `polkit-agent-helper-1: error response to PolicyKit daemon: GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: No session for cookie`
+
+1. Install `polkit-gnome` (`sudo pacman -S polkit-gnome`)
+2. Inside a startup script (or just run it in a terminal manually), run this: `exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &`
+3. Done
+
+This seems to be a [bug](https://gitlab.freedesktop.org/polkit/polkit/-/issues/17) which still hasn't been fixed, as it only occurs for some commands.
