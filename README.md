@@ -23,6 +23,10 @@ This is most lilely because of a `libva` error, to fix it on Arch, run these com
 2. Run Unity Hub using `LIBVA_DRIVER_NAME=nvidia unityhub`
 3. Done
 ## Flatpak Apps can't open FileChooser, etc
+Warning: Adding the `hash dbus-update...` line may prevent OBS Studio from working, ONLY use it if absolutely needed.
+
+Usually only step 1 and 2 are needed, the rest is only in rare occasions.
+
 Note: This is only for Hyprland, it may or may not work for other Wayland compositors.
 ***
 
@@ -38,12 +42,25 @@ exec-once=hash dbus-update-activation-environment 2>/dev/null && dbus-update-act
 ```
 4. Done, restart your PC and it should be working again. Make sure you launch Hyprland using `hyprland`, or you can just use  a `.desktop` file with `dbus-run-session` inside the `exec` part.
 
-## My OBS doesn't work :'(
-I never got OBS to work properly under Wayland (well dmabuf or w/e works until you switch workspaces), so I just started using `wf-recorder` instead.
+## My OBS doesn't work on NVIDIA
+Warning: I'd like to say that getting OBS working on NVIDIA without a headache is close to impossible, therefore I recommend you to use `wf-recorder` if you are just going to take small clips.
 
-Package: `wf-recorder`
+Second warning: This is focused on **Hyprland**, but it should apply to other wl-roots compositors as well.
 
-Command to record with audio: `wf-recorder -a`, and to record without audio: `wf-recorder`
+First, thanks to PowerBall253 for the [initial guide](https://gist.github.com/PowerBall253/2dea6ddf6974ba4e5d26c3139ffb7580#unsupported-wl_shm-format-0x34324742-after-trying-to-share-the-screen-on-nvidia), follow it **before** this one, as mine focuses more on fixing issues.
+
+1. Remove the gnome desktop portal, if installed. `sudo pacman -Rcsn xdg-desktop-portal-gnome`
+2. If your Hyprland config contains lines like `dbus-update-activation-environment` and so on, comment them out.
+3. If your config also contains lines where it starts `xdg-desktop-portal` services, comment them out.
+4. Install the required packages: `pipewire wireplumber xdg-desktop-portal-wlr` + OBS Studio if not already installed
+5. Run `systemctl --user enable pipewire.socket pipewire` and then make sure the services are all enabled: `systemctl --user status pipewire.socket pipewire`.
+6. Install a patched NVIDIA package from the AUR, otherwise OBS will just sit there and not understand what NVENC is: `paru -S nvidia-utils-nvlax`
+7. Restart your PC, not just your session.
+8. Run Hyprland and open OBS Studio
+9. If you followed the guide by PowerBall first and then this one, you should see `Screen Capture (PipeWire)` being available as a source.
+
+![image](https://user-images.githubusercontent.com/54314240/191113950-646b6f78-05f9-4709-bcf7-d341329e32bb.png)
+
 ## GTK Themes not applying everywhere
 I don't know if this is a Wayland-specific issue, but I have only encountered it on Wayland, hence why it's here.
 ***
