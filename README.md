@@ -135,3 +135,9 @@ For example, you may get this annoying error: `polkit-agent-helper-1: error resp
 3. Done
 
 This seems to be a [bug](https://gitlab.freedesktop.org/polkit/polkit/-/issues/17) which still hasn't been fixed, as it only occurs for some commands.
+## No default file manager
+For example when you `Browse Folder` in Steam and it opens Terminal. Not limited to Wayland, but thought I may as well put it here.
+
+1. Download a File Manager, for example `Nemo`
+2. Assign the desired File Manager to be the default one using `xdg-mime default (name).desktop inode/directory`
+3. Done
