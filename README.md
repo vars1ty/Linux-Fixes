@@ -1,5 +1,4 @@
-# Wayland Fixes
-Fixes for various Wayland-related problems, because icbf searching for them again.
+# Linux Fixes
 ## Jetbrains Products
 Because Jetbrains chose to use *Java* (yeah I know, cringe language) as the language behind their IDEs, it doesn't render properly (or at all) on Wayland.
 
@@ -7,7 +6,7 @@ To overcome this, run this in Terminal: `export _JAVA_AWT_WM_NONREPARENTING=1 &&
 
 And before you say, "Java is a good language! BOO BOO SOB SOB" - No, it isn't.
 ## Maim doesn't work
-Maim is a mess anyways, freezing and dying left and right on X11. Use Grim instead.
+Maim is a mess anyways, freezing and dying left and right on X11. Use Grim instead if you are on Wayland.
 
 Packages: `grim`, `grimshot`
 
@@ -42,8 +41,8 @@ exec-once=hash dbus-update-activation-environment 2>/dev/null && dbus-update-act
 ```
 4. Done, restart your PC and it should be working again. Make sure you launch Hyprland using `hyprland`, or you can just use  a `.desktop` file with `dbus-run-session` inside the `exec` part.
 
-## My OBS doesn't work on NVIDIA
-Warning: I'd like to say that getting OBS working on NVIDIA without a headache is close to impossible, therefore I recommend you to use `wf-recorder` if you are just going to take small clips.
+## My OBS doesn't work on Wayland, NVIDIA
+Warning: Setting up OBS on Wayland in general is a hit or miss.
 
 Second warning: This is focused on **Hyprland**, but it should apply to other wl-roots compositors as well.
 
@@ -61,9 +60,9 @@ First, thanks to PowerBall253 for the [initial guide](https://gist.github.com/Po
 
 ![image](https://user-images.githubusercontent.com/54314240/191113950-646b6f78-05f9-4709-bcf7-d341329e32bb.png)
 
+**ALTERNATIVE**: Install `wlrobs-hf` from the AUR, add the `Wayland output(dmabuf)` source and done.
+
 ## GTK Themes not applying everywhere
-I don't know if this is a Wayland-specific issue, but I have only encountered it on Wayland, hence why it's here.
-***
 Let's say you are using the [Orchis](https://github.com/vinceliuice/Orchis-theme) theme and want it to apply to applications such as Thunar. Well, does this look correct?
 
 ![image](https://user-images.githubusercontent.com/54314240/183556600-779f7abd-42d5-4d99-aee2-321babea71b2.png)
@@ -78,8 +77,6 @@ No? It hurts your eyes right? Yeah thought so.
 
 You may wanna pass this to `/etc/environment` though so you don't have to export the variable yourself constantly.
 ## Cursor Themes not applying in Flatpak applications
-I don't know if this is a Wayland-specific issue, but I have only encountered it on Wayland, hence why it's here.
-***
 1. Open up Flatseal
 2. Press `All Applications`
 3. In `Other files` add in `/home/YOUR_USERNAME/.icons`
@@ -90,7 +87,7 @@ No idea if this is tied to NVIDIA GPUs, but seems like it is. Anyways, launch yo
 `application-name --enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=egl`
 
 I have no idea why this happens for some, while for others it just works. But it's whatever I guess.
-## NVIDIA Overclocking does not work
+## NVIDIA Overclocking does not work on Wayland
 Blame NVIDIA, there's (afaik) no workaround for it atm.
 ## Discord is slow and laggy
 Don't use the official Discord client, nor the AUR hacky electron-upgraded ones.
@@ -105,17 +102,17 @@ No if you make a file at `~/.config/electron-flags.conf` with the following cont
 --ozone-platform=wayland
 ```
 
+*Although it's worth noting that a lot of applications tend to not give a shit about that file.*
+
 Yes if the application is either from Flatpak and doesn't have read permissions for the file, **or** if the application simply just does not want to run on Wayland at all.
 
 **For Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server permissions and only allow it to access Wayland.**
 **Below is an example for Librewolf**
 
 ![image](https://user-images.githubusercontent.com/54314240/184984454-adffaf8a-e94e-4b67-bf18-6a1cd095e350.png)
-## Screensharing on WebCord
-No clue, for some "it just works" after configuring portals (as seen above with xdg-desktop-*), and for some it just will not work.
-
-In general, screensharing and OBS is a hit or miss, since they both are moody as shit.
-## Stremio has weird colors
+## Screensharing on WebCord via NVIDIA, Wayland
+Not possible as of right now (IIRC).
+## Stremio has weird colors on Wayland
 In my case, I can't even run Stremio on Wayland without it suffering from issues. So instead, run it in XWayland for now.
 
 For non-Flatpak users:
@@ -123,7 +120,9 @@ For non-Flatpak users:
 
 For Flatpak users:
 `export QT_QPA_PLATFORM=xcb && com.stremio.Stremio`
-## Neovide doesn't launch
+
+Ensure you have `qt5-wayland` and `qt5ct` installed BEFORE running any of the steps above.
+## Neovide doesn't launch on Wayland
 This is due to some dep. issue IIRC, which hasn't yet been solved by Neovide.
 
 For now, you have to run it in XWayland: `WINIT_UNIX_BACKEND=x11 neovide`
@@ -141,3 +140,13 @@ For example when you `Browse Folder` in Steam and it opens Terminal. Not limited
 1. Download a File Manager, for example `Nemo`
 2. Assign the desired File Manager to be the default one using `xdg-mime default (name).desktop inode/directory`
 3. Done
+## Steam crashes with `cannot create directory /home/username/.steam : Read-only filesystem`
+This took me **days** to even figure out, don't ask why and how I even got to this point because I don't know either.
+
+1. Install Steam through Flatpak
+2. Make a new directory at your home called `.steam`, or copy-paste this: `mkdir ~/.steam`
+3. Take ownership of it using `chown $(whoami):$(whoami) ~/.steam`
+4. Ensure Flatpak has read-write permissions of that directory (`rw`) by executing `sudo flatpak override com.valvesoftware.Steam --filesystem=/home/$(whoami)/.steam:rw`
+5. Launch Steam
+
+If all went accordingly, Steam should launch and work. If not, then I have no idea what your Steam is on.
