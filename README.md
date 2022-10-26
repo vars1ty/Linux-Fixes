@@ -150,3 +150,16 @@ This took me **days** to even figure out, don't ask why and how I even got to th
 5. Launch Steam
 
 If all went accordingly, Steam should launch and work. If not, then I have no idea what your Steam is on.
+## Proton doesn't work with EAC
+If you directly run a game through Bottles that isn't from Flatpak, then you might have noticed that you can't get into a game (or you get kicked after 30 seconds).
+
+This is because Proton doesn't have the Easy AntiCheat runtime set by default, you'll have to do that yourself.
+
+1. Install Steam
+2. Install `Proton EasyAntiCheat Runtime`
+3. Right-Click EasyAntiCheat Runtime -> Manage -> Browse local files
+4. Copy the absolute path to the folder, then set a new environment variable inside of Bottles named `PROTON_EAC_RUNTIME`
+5. Paste in the EasyAntiCheat Runtime path into the newly-created environment variable, and save
+6. Run your game and gg's, it should work.
+
+This should also work for BattlEye, using the `PROTON_BATTLEYE_RUNTIME` environment variable.
