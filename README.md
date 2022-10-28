@@ -174,7 +174,10 @@ If you can't find a solution, you may try these things which has helped me mitig
 5. Go to Preferences and change these settings:
 - Display Settings: Mouse Warp = ON
 - Runner Components: Runner =  soda-7.0.*
-- Synchronization: Fsync (Esync seems to crash the game 99% of the time)
+- Synchronization: Fsync
+  - "Why not Esync?"
+    - Esync is slower and causes crashes. Although with Fsync you **have** to make sure your kernel supports it.
+    - More information [here](https://www.protondb.com/help/improving-performance). 
 6. Install Crossouts Launcher and then the game
 7. Launch the game and done, it should work. How stable it is though varies.
 
