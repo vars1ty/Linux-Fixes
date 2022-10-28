@@ -178,4 +178,4 @@ If you can't find a solution, you may try these things which has helped me mitig
 6. Install Crossouts Launcher and then the game
 7. Launch the game and done, it should work. How stable it is though varies.
 
-If you want to fix the offset cursor without ALT+TAB (DE) or Swapping Workspaces (WM), install `gamescope
+If you want to fix the offset cursor without ALT+TAB (DE) or Swapping Workspaces (WM), install `gamescope`.
