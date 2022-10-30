@@ -182,3 +182,11 @@ If you can't find a solution, you may try these things which has helped me mitig
 7. Launch the game and done, it should work. How stable it is though varies.
 
 If you want to fix the offset cursor without ALT+TAB (DE) or Swapping Workspaces (WM), install `gamescope`.
+## Cursor Themes not working
+If you set your cursor theme through LXAppearance and can't see it across all of your applications, then it didn't get set properly.
+
+1. Locate the **exact** name of the cursor theme, it's listed in LXAppearance -> Mouse Cursor
+2. Open Terminal and write in `gsettings set org.gnome.desktop.interface cursor-theme (name-of-theme)`
+3. Open `~/.config/gtk-3.0/settings.ini` in your favorite text editor
+4. Set the value of `gtk-cursor-theme-name` to the cursor themes name
+5. Restart and done!
