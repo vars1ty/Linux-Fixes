@@ -163,25 +163,6 @@ This is because Proton doesn't have the Easy AntiCheat runtime set by default, y
 6. Run your game and gg's, it should work.
 
 This should also work for BattlEye, using the `PROTON_BATTLEYE_RUNTIME` environment variable.
-## Crossout crashes after a few minutes
-First, run Steam/Bottles/whatever through Terminal and let it crash, then check if you can find a solution for the issue from there.
-
-If you can't find a solution, you may try these things which has helped me mitigate *most* of the crashes (still to be updated):
-1. Install Bottles **from Flatpak** - The AUR version works too but the Flatpak version has some extra stuff packaged into it
-2. Setup a new Bottle from the "Gaming" Category, name it whatever
-3. On Bottles main menu, press the hamburger menu, Preferences, Runners and install `soda-7.0`
-4. Open your newly-created Bottle
-5. Go to Preferences and change these settings:
-- Display Settings: Mouse Warp = ON
-- Runner Components: Runner =  soda-7.0.*
-- Synchronization: Fsync
-  - "Why not Esync?"
-    - Esync is slower and causes crashes. Although with Fsync you **have** to make sure your kernel supports it.
-    - More information [here](https://www.protondb.com/help/improving-performance). 
-6. Install Crossouts Launcher and then the game
-7. Launch the game and done, it should work. How stable it is though varies.
-
-If you want to fix the offset cursor without ALT+TAB (DE) or Swapping Workspaces (WM), install `gamescope`.
 ## Cursor Themes not working
 If you set your cursor theme through LXAppearance and can't see it across all of your applications, then it didn't get set properly.
 
@@ -190,3 +171,10 @@ If you set your cursor theme through LXAppearance and can't see it across all of
 3. Open `~/.config/gtk-3.0/settings.ini` in your favorite text editor
 4. Set the value of `gtk-cursor-theme-name` to the cursor themes name
 5. Restart and done!
+## I can't control my PWM Fans
+Easy fix for most PCs:
+
+1. Edit your kernel parameters
+2. Add `acpi_enforce_resources=lax`
+3. Regenerate your GRUB config
+4. Restart and done, they should work after you have detected them using `sensors-detect`
