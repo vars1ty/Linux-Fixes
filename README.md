@@ -62,6 +62,9 @@ First, thanks to PowerBall253 for the [initial guide](https://gist.github.com/Po
 
 **ALTERNATIVE**: Install `wlrobs-hf` from the AUR, add the `Wayland output(dmabuf)` source and done.
 
+## Screenshare doesn't work on Firefox
+If you set up your portals properly like above and it still doesn't work, launch this inside a terminal and try screenshare: `/usr/lib/xdg-desktop-portal -r`
+
 ## GTK Themes not applying everywhere
 Let's say you are using the [Orchis](https://github.com/vinceliuice/Orchis-theme) theme and want it to apply to applications such as Thunar. Well, does this look correct?
 
