@@ -181,3 +181,15 @@ Easy fix for most PCs:
 2. Add `acpi_enforce_resources=lax`
 3. Regenerate your GRUB config
 4. Restart and done, they should work after you have detected them using `sensors-detect`
+## Firefox CSS Blur doesn't work on Hyprland
+> **Note** This isn't a complete "fix", but more a workaround.
+>
+> It's also expected that you have already enabled Web Render, etc.
+
+1. Make sure your theme is actually making the main window transparent, which is what Hyprland will be blurring
+2. Open your Hyprland config
+3. Add this line: `windowrule=opacity 0.999,firefox` - `firefox` being the class name of the browser.
+4. Restart your browser
+5. Done
+
+It's hacky though, as the blur will go away when you fullscreen the browser, or focus a different window.
