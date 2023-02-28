@@ -193,3 +193,17 @@ Easy fix for most PCs:
 5. Done
 
 It's hacky though, as the blur will go away when you fullscreen the browser, or focus a different window.
+## Splitgate crashes on AMD GPUs
+1. Open `~/.config/Epic/PortalWars/Saved/Config/LinuxNoEditor/GameUserSettings.ini`
+2. Set `bHasRunAutoCalibration` to `True`
+3. Save and Splitgate should now work
+## Crossout crashes
+> **Note** This isn't a complete fix, it may still crash.
+
+1. Install Crossout via Bottles
+2. Set the runner to the latest Proton-GE version
+3. Set the DXVK Version to 1.10.3
+4. Enable Virtual Desktop (or Gamescope)
+5. Launch
+## AMD Vulkan initialization errors
+Remove the `amdvlk` package and it should work
