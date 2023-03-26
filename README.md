@@ -22,7 +22,7 @@ This is most lilely because of a `libva` error, to fix it on Arch, run these com
 2. Run Unity Hub using `LIBVA_DRIVER_NAME=nvidia unityhub`
 3. Done
 ## Flatpak Apps can't open FileChooser, etc
-Warning: Adding the `hash dbus-update...` line may prevent OBS Studio from working, ONLY use it if absolutely needed.
+> **Warning**: Adding the `hash dbus-update...` line may prevent OBS Studio from working, ONLY use it if absolutely needed.
 
 Usually only step 1 and 2 are needed, the rest is only in rare occasions.
 
@@ -66,6 +66,8 @@ First, thanks to PowerBall253 for the [initial guide](https://gist.github.com/Po
 If you set up your portals properly like above and it still doesn't work, launch this inside a terminal and try screenshare: `/usr/lib/xdg-desktop-portal -r`
 
 ## GTK Themes not applying everywhere
+> **Warning**: Incomplete section, use at your own risk!
+
 Let's say you are using the [Orchis](https://github.com/vinceliuice/Orchis-theme) theme and want it to apply to applications such as Thunar. Well, does this look correct?
 
 ![image](https://user-images.githubusercontent.com/54314240/183556600-779f7abd-42d5-4d99-aee2-321babea71b2.png)
@@ -91,11 +93,15 @@ No idea if this is tied to NVIDIA GPUs, but seems like it is. Anyways, launch yo
 
 I have no idea why this happens for some, while for others it just works. But it's whatever I guess.
 ## NVIDIA Overclocking does not work on Wayland
-Blame NVIDIA, there's (afaik) no workaround for it atm.
+Blame NVIDIA, there are ways around it, like starting an X11 session, applying OC and then going back to your Wayland session, but it's all a huge mess.
+
+Go AMD instead.
 ## Discord is slow and laggy
 Don't use the official Discord client, nor the AUR hacky electron-upgraded ones.
 
-Instead, use [WebCord](https://github.com/SpacingBat3/WebCord) which wraps around the web version of Discord, while also respecting your privacy and blocking certain tracking.
+Instead, use [WebCord](https://github.com/ArmCord/ArmCord) which wraps around the web version of Discord, while also respecting your privacy, blocks certain trackers and has plugin-support.
+
+> **Note**: There's also WebCord, but it tends to break after updates with weird errors, and it also doesn't have straight-forward support for themes nor plugins.
 ## Do I have to pass flags to every Electron application for it to run in Wayland?
 Yes and no. 
 
@@ -109,12 +115,10 @@ No if you make a file at `~/.config/electron-flags.conf` with the following cont
 
 Yes if the application is either from Flatpak and doesn't have read permissions for the file, **or** if the application simply just does not want to run on Wayland at all.
 
-**For Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server permissions and only allow it to access Wayland.**
+**For Electron Flatpak applications to even run properly on Wayland, use Flatseal and remove the X11 Display Server permissions and only allow it to access Wayland.**
 **Below is an example for Librewolf**
 
 ![image](https://user-images.githubusercontent.com/54314240/184984454-adffaf8a-e94e-4b67-bf18-6a1cd095e350.png)
-## Screensharing on WebCord via NVIDIA, Wayland
-Not possible as of right now (IIRC).
 ## Stremio has weird colors on Wayland
 In my case, I can't even run Stremio on Wayland without it suffering from issues. So instead, run it in XWayland for now.
 
@@ -126,9 +130,11 @@ For Flatpak users:
 
 Ensure you have `qt5-wayland` and `qt5ct` installed BEFORE running any of the steps above.
 ## Neovide doesn't launch on Wayland
-This is due to some dep. issue IIRC, which hasn't yet been solved by Neovide.
+Neovide doesn't have proper Wayland support due to some outdated (IIRC) dependency issue.
 
-For now, you have to run it in XWayland: `WINIT_UNIX_BACKEND=x11 neovide`
+There are, however, [forks](https://github.com/williamspatrick/neovide) of it that run okay-ish, flaws will be listed below:
+1. When dragging with your cursor, the position is offset. This doesn't affect just regular single-clicks though
+2. Can crash in some rare occurrences
 ## PolKit is dead
 For example, you may get this annoying error: `polkit-agent-helper-1: error response to PolicyKit daemon: GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: No session for cookie`
 
@@ -198,7 +204,7 @@ It's hacky though, as the blur will go away when you fullscreen the browser, or 
 2. Set `bHasRunAutoCalibration` to `True`
 3. Save and Splitgate should now work
 ## Crossout crashes
-> **Note** This isn't a complete fix, it may still crash.
+> **Warning**: Incomplete section, use at your own risk!
 
 1. Install Crossout via Bottles
 2. Set the runner to the latest Proton-GE version
