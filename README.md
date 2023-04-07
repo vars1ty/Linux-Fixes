@@ -213,3 +213,6 @@ It's hacky though, as the blur will go away when you fullscreen the browser, or 
 5. Launch
 ## AMD Vulkan initialization errors
 Remove the `amdvlk` package and it should work
+## Missing sudo / broken doas config
+- Option 1: Use an USB and chroot into your machine.
+- Option 2: Run `pkexec`, enter your password and now you *should* be running commands as root, so fix what you broke and then `exit`.
