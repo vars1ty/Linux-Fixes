@@ -216,3 +216,11 @@ Remove the `amdvlk` package and it should work
 ## Missing sudo / broken doas config
 - Option 1: Use an USB and chroot into your machine.
 - Option 2: Run `pkexec`, enter your password and now you *should* be running commands as root, so fix what you broke and then `exit`.
+## Failed to initialize Wayland platform
+Electrooooon!
+
+1. Run `XDG_RUNTIME_DIR=/run/user/1000 (application)`
+2. If it works, proceed. If not, I have no idea what your issue is related to if you setup the flags correctly (aka UseOzonePlatform etc)
+3. Add `XDG_RUNTIME_DIR=/run/user/1000` to `/etc/environment` and reboot
+
+Done!
