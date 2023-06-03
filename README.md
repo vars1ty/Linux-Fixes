@@ -99,9 +99,9 @@ Go AMD instead.
 ## Discord is slow and laggy
 Don't use the official Discord client, nor the AUR hacky electron-upgraded ones.
 
-Instead, use [WebCord](https://github.com/ArmCord/ArmCord) which wraps around the web version of Discord, while also respecting your privacy, blocks certain trackers and has plugin-support.
+Instead, use [ArmCord](https://github.com/ArmCord/ArmCord) which wraps around the web version of Discord, while also respecting your privacy, blocks certain trackers and has plugin-support.
 
-> **Note**: There's also WebCord, but it tends to break after updates with weird errors, and it also doesn't have straight-forward support for themes nor plugins.
+> **Note**: There's also WebCord, but it tends to break after updates with weird errors, and it also doesn't have straight-forward support for plugins.
 ## Do I have to pass flags to every Electron application for it to run in Wayland?
 Yes and no. 
 
@@ -224,3 +224,16 @@ Electrooooon!
 3. Add `XDG_RUNTIME_DIR=/run/user/1000` to `/etc/environment` and reboot
 
 Done!
+## I can't enter my keyboards bluetooth passkey
+1. Make sure you have followed the Arch Wiki regarding bluetooth, and what packages to install.
+2. `sudo modprobe btusb`
+
+Bluetoothctl commands:
+1. `power on`
+2. `pairable on`
+3. `scan on`
+4. `agent off`
+5. `agent NoInputNoOutput`
+6. `trust (keyboard-mac)`
+7. `pair (keyboard-mac)`
+8. Done, it should now be connected
