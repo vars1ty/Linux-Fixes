@@ -237,3 +237,13 @@ Bluetoothctl commands:
 6. `trust (keyboard-mac)`
 7. `pair (keyboard-mac)`
 8. Done, it should now be connected
+## My Firefox CSS theme has no blur?
+1. Add these lines into your theme:
+```css
+#TabsToolbar, #titlebar, #main-window, #navigator-toolbox {
+	-moz-appearance: none !important;
+	background-color: rgba(255, 255, 255, 0) !important;
+	background-image: none !important;
+}
+```
+2. If you're using Hyprland, add this window rule to make the blur not become solid: `windowrule=opacity 0.999,NAME`, for example on Mullvad Browser, it's: `windowrule=opacity 0.999,Mullvad Browser`.
