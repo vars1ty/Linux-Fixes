@@ -247,3 +247,15 @@ Bluetoothctl commands:
 }
 ```
 2. If you're using Hyprland, add this window rule to make the blur not become solid: `windowrule=opacity 0.999,NAME`, for example on Mullvad Browser, it's: `windowrule=opacity 0.999,Mullvad Browser`.
+## My Logitech mouse skips steps whilst scrolling
+This isn't a Wayland-related issue, it's an issue with the high-resolution scrolling of the mouse which broke in the 6.x kernel series AFAIK. [Source](https://www.reddit.com/r/linux_gaming/comments/1032x5q/linux_61_update_screws_up_the_mouse_wheel_of_my/)
+
+To fix it, you have to either use a [different libinput package](xf86-input-libinput-no-hires-scroll) on X11 (not recommended imho), or you can follow these basic steps to blacklist the module:
+
+1. Run `sudo nvim /etc/modprobe.d/blacklist.conf` or use any other text editor.
+2. Write in `blacklist hid-logitech-hidpp`
+3. Save and write `sudo mkinitcpio -P`
+4. Reboot your PC
+5. Done
+
+Credits to [Dutxs](https://www.reddit.com/user/Dutxs/) for the initial guide on blacklisting the high-resolution scrolling module, which works as a workaround for this issue.
