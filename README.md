@@ -204,15 +204,15 @@ It's hacky though, as the blur will go away when you fullscreen the browser, or 
 2. Set `bHasRunAutoCalibration` to `True`
 3. Save and Splitgate should now work
 ## Crossout crashes
-> **Warning**: Incomplete section, use at your own risk!
+There is no real solution to this apart from trying to  work-around it via older DXVK versions (which will still crash and lack features), or forcing DirectX 12.
 
-1. Install Crossout via Bottles
-2. Set the runner to the latest Proton-GE version
-3. Set the DXVK Version to 1.10.3
-4. Enable Virtual Desktop (or Gamescope)
-5. Launch
+1. Download [CLD12](https://github.com/vars1ty/CrossoutLD12)
+2. Follow [the instructions](https://github.com/vars1ty/CrossoutLD12?tab=readme-ov-file#requirements)
+3. Done, it should now work. Repeat step 2 every time you restart the game, as the launcher will try and revert the changes.
+
+Steps above has also been confirmed working on the Steam Deck.
 ## AMD Vulkan initialization errors
-Remove the `amdvlk` package and it should work
+Remove the `amdvlk` package and it should work.
 ## Missing sudo / broken doas config
 - Option 1: Use an USB and chroot into your machine.
 - Option 2: Run `pkexec`, enter your password and now you *should* be running commands as root, so fix what you broke and then `exit`.
