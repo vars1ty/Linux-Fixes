@@ -240,7 +240,7 @@ To fix it, you have to either use a [different libinput package](xf86-input-libi
 5. Done
 
 Credits to [Dutxs](https://www.reddit.com/user/Dutxs/) for the initial guide on blacklisting the high-resolution scrolling module, which works as a workaround for this issue.
-## My RAZER devices aren't being detected!
+## My RAZER devices aren't being detected in OpenRGB!
 First have you ensured that you have installed the udev rules? Read how to install them [here](https://github.com/flathub/org.openrgb.OpenRGB).
 
 If that didn't do it, follow these instructions. Note that I'm on Arch, so you'll have to recreate the steps for whatever distro you're using.
