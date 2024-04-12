@@ -22,25 +22,9 @@ This is most lilely because of a `libva` error, to fix it on Arch, run these com
 2. Run Unity Hub using `LIBVA_DRIVER_NAME=nvidia unityhub`
 3. Done
 ## Flatpak Apps can't open FileChooser, etc
-> **Warning**: Adding the `hash dbus-update...` line may prevent OBS Studio from working, ONLY use it if absolutely needed.
+Install the `xdg-desktop-portal-gtk` portal and it should be working from there.
 
-Usually only step 1 and 2 are needed, the rest is only in rare occasions.
-
-Note: This is only for Hyprland, it may or may not work for other Wayland compositors.
-***
-
-1. Install `xdg-desktop-portal`, `xdg-desktop-potal-gtk` and `xdg-desktop-portal-wlr`
-2. Add an alias to your `.bashrc` or `.zshrc` named `hyprland`, here's the full line:
-   * `alias hyprland="dbus-run-session Hyprland"`
-3. Add this to your config:
-```
-exec-once=systemctl --user enable xdg-desktop-portal
-exec-once=systemctl --user enable xdg-desktop-portal-wlr
-exec-once=systemctl --user enable xdg-desktop-portal-gtk
-exec-once=hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-```
-4. Done, restart your PC and it should be working again. Make sure you launch Hyprland using `hyprland`, or you can just use  a `.desktop` file with `dbus-run-session` inside the `exec` part.
-
+From what I know, no other portal really implements a file chooser, apart from GTK.
 ## My OBS doesn't work on Wayland, NVIDIA
 Warning: Setting up OBS on Wayland in general is a hit or miss.
 
@@ -101,7 +85,7 @@ Don't use the official Discord client, nor the AUR hacky electron-upgraded ones.
 
 Instead, use [ArmCord](https://github.com/ArmCord/ArmCord) which wraps around the web version of Discord, while also respecting your privacy, blocks certain trackers and has plugin-support.
 
-> **Note**: There's also WebCord, but it tends to break after updates with weird errors, and it also doesn't have straight-forward support for plugins.
+> **Note**: There's also WebCord, but it tends to break after updates with weird errors, doesn't have plugins, and is basically in a locked-like state since nothing new has happened for ages.
 ## Do I have to pass flags to every Electron application for it to run in Wayland?
 Yes and no. 
 
@@ -120,21 +104,16 @@ Yes if the application is either from Flatpak and doesn't have read permissions 
 
 ![image](https://user-images.githubusercontent.com/54314240/184984454-adffaf8a-e94e-4b67-bf18-6a1cd095e350.png)
 ## Stremio has weird colors on Wayland
-In my case, I can't even run Stremio on Wayland without it suffering from issues. So instead, run it in XWayland for now.
+1. Install `qt5-wayland` and `qt6-wayland`
+2. Run Stremio and check if color-banding is still present.
+
+If still present and you can't find a solution, your best workaround might just be to run it in XWayland for the time being.
 
 For non-Flatpak users:
 `export QT_QPA_PLATFORM=xcb && stremio` 
 
 For Flatpak users:
 `export QT_QPA_PLATFORM=xcb && com.stremio.Stremio`
-
-Ensure you have `qt5-wayland` and `qt5ct` installed BEFORE running any of the steps above.
-## Neovide doesn't launch on Wayland
-Neovide doesn't have proper Wayland support due to some outdated (IIRC) dependency issue.
-
-There are, however, [forks](https://github.com/williamspatrick/neovide) of it that run okay-ish, flaws will be listed below:
-1. When dragging with your cursor, the position is offset. This doesn't affect just regular single-clicks though
-2. Can crash in some rare occurrences
 ## PolKit is dead
 For example, you may get this annoying error: `polkit-agent-helper-1: error response to PolicyKit daemon: GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: No session for cookie`
 
@@ -172,6 +151,8 @@ This is because Proton doesn't have the Easy AntiCheat runtime set by default, y
 6. Run your game and gg's, it should work.
 
 This should also work for BattlEye, using the `PROTON_BATTLEYE_RUNTIME` environment variable.
+
+**Note**: This isn't a perfect solution. Sometimes EAC still will fail to initialize even if you do all of this. Why, I don't know.
 ## Cursor Themes not working
 If you set your cursor theme through LXAppearance and can't see it across all of your applications, then it didn't get set properly.
 
@@ -259,3 +240,16 @@ To fix it, you have to either use a [different libinput package](xf86-input-libi
 5. Done
 
 Credits to [Dutxs](https://www.reddit.com/user/Dutxs/) for the initial guide on blacklisting the high-resolution scrolling module, which works as a workaround for this issue.
+## My RAZER devices aren't being detected!
+First have you ensured that you have installed the udev rules? Read how to install them [here](https://github.com/flathub/org.openrgb.OpenRGB).
+
+If that didn't do it, follow these instructions. Note that I'm on Arch, so you'll have to recreate the steps for whatever distro you're using.
+1. Uninstall `openrgb`
+2. Install `openrgb-git`, `libopenrazer`, `openrazer-daemon`, `openrazer-driver-dkms` and `python-openrazer`
+3. Unplug your RAZER dongle and put it into a different USB slot, just in case
+4. Open OpenRGB and if everything went as it should, your device(s) should now be detected.
+
+Otherwise if this didn't work, you can try alternatives like `razergenie` and `razercommander`.
+
+Although they are less convenient since having everything in one software is often the most ideal, it's there if you really can't get OpenRGB to work.
+![image](https://github.com/vars1ty/Linux-Fixes/assets/54314240/94d8c1ca-aed2-494b-aea0-dccfededed65)
