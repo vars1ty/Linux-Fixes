@@ -253,3 +253,5 @@ Otherwise if this didn't work, you can try alternatives like `razergenie` and `r
 
 Although they are less convenient since having everything in one software is often the most ideal, it's there if you really can't get OpenRGB to work.
 ![image](https://github.com/vars1ty/Linux-Fixes/assets/54314240/94d8c1ca-aed2-494b-aea0-dccfededed65)
+## WiFi has lag-spikes
+Your network car (or USB) is probably in power-saving mode. What fixed it for me (observed via `ping netflix.com`) was: `sudo iwconfig INTERFACE power off`.
